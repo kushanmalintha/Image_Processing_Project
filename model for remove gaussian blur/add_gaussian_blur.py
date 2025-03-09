@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 os.makedirs('../gaussian_blurred', exist_ok=True)
 
-src_dir = '../sharp'
+src_dir = 'C:/Users/kusha/OneDrive/Desktop/COM/Sem_5/CO543-Image Processing/Labs/Project/ImageProcessingMiniProject/sharp'
 images = os.listdir(src_dir)
 dst_dir = '../gaussian_blurred'
 

@@ -3,7 +3,7 @@ import cv2
 import os
 import matplotlib.pyplot as plt
 import torchvision.transforms as transforms
-from model import MotionDeblurCNN  # Assuming your model is saved as 'model.py'
+from model import MotionDeblurCNN
 
 # Setup
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

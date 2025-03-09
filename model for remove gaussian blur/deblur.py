@@ -35,9 +35,9 @@ print(device)
 batch_size = 2
 
 # Define Train-Test Split and the Image Transforms
-gauss_blur = os.listdir('../gaussian_blurred')
+gauss_blur = os.listdir('C:/Users/kusha/OneDrive/Desktop/COM/Sem_5/CO543-Image Processing/Labs/Project/ImageProcessingMiniProject/gaussian_blurred')
 gauss_blur.sort()
-sharp = os.listdir('../sharp')
+sharp = os.listdir('C:/Users/kusha/OneDrive/Desktop/COM/Sem_5/CO543-Image Processing/Labs/Project/ImageProcessingMiniProject/sharp')
 sharp.sort()
 x_blur = []
 for i in range(len(gauss_blur)):
@@ -68,13 +68,13 @@ class DeblurDataset(Dataset):
         return (len(self.X))
     
     def __getitem__(self, i):
-        blur_image = cv2.imread(f"../gaussian_blurred/{self.X[i]}")
+        blur_image = cv2.imread(f"C:/Users/kusha/OneDrive/Desktop/COM/Sem_5/CO543-Image Processing/Labs/Project/ImageProcessingMiniProject/gaussian_blurred{self.X[i]}")
         
         if self.transforms:
             blur_image = self.transforms(blur_image)
             
         if self.y is not None:
-            sharp_image = cv2.imread(f"../sharp/{self.y[i]}")
+            sharp_image = cv2.imread(f"C:/Users/kusha/OneDrive/Desktop/COM/Sem_5/CO543-Image Processing/Labs/Project/ImageProcessingMiniProject/sharp{self.y[i]}")
             sharp_image = self.transforms(sharp_image)
             return (blur_image, sharp_image)
         else:

@@ -72,9 +72,16 @@ class MotionDeblurCNN(nn.Module):
 
         # Decoder
         dec1 = self.decoder1(enc4)
-        dec2 = self.decoder2(dec1 + enc3)  # Skip connection
-        dec3 = self.decoder3(dec2 + enc2)  # Skip connection
-        dec4 = self.decoder4(dec3 + enc1)  # Skip connection
+        dec1 = F.interpolate(dec1, size=enc3.shape[2:], mode='bilinear', align_corners=False)
+
+        dec2 = self.decoder2(dec1 + enc3)
+        dec2 = F.interpolate(dec2, size=enc2.shape[2:], mode='bilinear', align_corners=False)
+
+        dec3 = self.decoder3(dec2 + enc2)
+        dec3 = F.interpolate(dec3, size=enc1.shape[2:], mode='bilinear', align_corners=False)
+
+        dec4 = self.decoder4(dec3 + enc1)
+        dec4 = F.interpolate(dec4, size=(256, 256), mode='bilinear', align_corners=False)  # Ensure final output is 256x256
 
         return dec4
 
@@ -94,8 +101,8 @@ transform = transforms.Compose([
 ])
 
 # Folder paths to datasets (change to your dataset paths)
-blur_folder = './motion_blurred'
-sharp_folder = './sharp'
+blur_folder = 'C:/Users/kusha/OneDrive/Desktop/COM/Sem_5/CO543-Image Processing/Labs/Project/ImageProcessingMiniProject/motion_blurred'
+sharp_folder = 'C:/Users/kusha/OneDrive/Desktop/COM/Sem_5/CO543-Image Processing/Labs/Project/ImageProcessingMiniProject/sharp'
 
 # Create dataset and dataloader
 dataset = MotionBlurDataset(blur_folder, sharp_folder, transform=transform)
@@ -138,6 +145,3 @@ plt.xlabel('Epochs')
 plt.ylabel('Loss')
 plt.title('Training Loss Over Epochs')
 plt.savefig('training_loss.jpg')
-
-# Optionally, display the plot
-plt.show()
