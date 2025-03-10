@@ -14,7 +14,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 # Load the trained generator model
 def load_model(model_path):
     model = Generator().to(device)
-    model.load_state_dict(torch.load(model_path))
+    model.load_state_dict(torch.load(model_path, map_location=device))
     model.eval()
     return model
 
@@ -89,3 +89,6 @@ if model_file is not None:
             st.image(deblurred_image, caption='Deblurred Image', use_container_width=True)
 else:
     st.sidebar.warning("Please upload a model file to proceed.")
+
+
+# To run the app : streamlit run app.py
