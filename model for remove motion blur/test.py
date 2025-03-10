@@ -49,5 +49,5 @@ def deblur_image(image_path):
     plt.show()
 
 # Test with a new image (replace with your test image path)
-image_path = ''
+image_path = 'Image_Processing_Project/motion_blurred/124_HONOR-7X_M.jpg'
 deblur_image(image_path)

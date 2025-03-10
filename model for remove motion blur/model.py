@@ -101,12 +101,12 @@ transform = transforms.Compose([
 ])
 
 # Folder paths to datasets (change to your dataset paths)
-blur_folder = 'C:/Users/kusha/OneDrive/Desktop/COM/Sem_5/CO543-Image Processing/Labs/Project/ImageProcessingMiniProject/motion_blurred'
-sharp_folder = 'C:/Users/kusha/OneDrive/Desktop/COM/Sem_5/CO543-Image Processing/Labs/Project/ImageProcessingMiniProject/sharp'
+blur_folder = '/media/ravindu/38D6E9B4D6E97314/My Projects/python/Kushan/Image_Processing_Project/motion_blurred'
+sharp_folder = '/media/ravindu/38D6E9B4D6E97314/My Projects/python/Kushan/Image_Processing_Project/sharp'
 
 # Create dataset and dataloader
 dataset = MotionBlurDataset(blur_folder, sharp_folder, transform=transform)
-dataloader = DataLoader(dataset, batch_size=4, shuffle=True)
+dataloader = DataLoader(dataset, batch_size=2, shuffle=True)  # Reduced batch size from 4 to 2
 
 # Training function
 def train(model, dataloader, num_epochs=10):
@@ -133,15 +133,16 @@ def train(model, dataloader, num_epochs=10):
     
     return loss_history
 
-# Train the model
-loss_history = train(model, dataloader, num_epochs=10)
+if __name__ == '__main__':
+    # Train the model
+    loss_history = train(model, dataloader, num_epochs=10)
 
-# Save the trained model in .pth format (PyTorch format)
-torch.save(model.state_dict(), 'motion_deblur_model.pth')
+    # Save the trained model in .pth format (PyTorch format)
+    torch.save(model.state_dict(), 'motion_deblur_model.pth')
 
-# Plotting the loss history
-plt.plot(loss_history)
-plt.xlabel('Epochs')
-plt.ylabel('Loss')
-plt.title('Training Loss Over Epochs')
-plt.savefig('training_loss.jpg')
+    # Plotting the loss history
+    plt.plot(loss_history)
+    plt.xlabel('Epochs')
+    plt.ylabel('Loss')
+    plt.title('Training Loss Over Epochs')
+    plt.savefig('training_loss.jpg')
